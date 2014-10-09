@@ -1,0 +1,19 @@
+#!/bin/sh
+
+GITREPO=${GIT_REPO:-"git://git.fedorahosted.org/koji"}
+GITDIR=/opt/koji
+BASEDIR=$(dirname ${GITDIR})
+
+if [ ! -d $GITDIR ]; then
+  mkdir /opt
+  cd /opt
+  git clone ${GITREPO}
+else
+  cd ${GITDIR}
+  git pull
+fi
+
+cd ${GITDIR}
+make test-rpm
+
+/usr/local/bin/kick-supervisord
