@@ -1,6 +1,10 @@
 #!/bin/sh
 
-SPID=$(ps ax | grep supervisord | head -1 | awk '{print $1}')
+PROCS=$(ps ax | grep supervisord | grep -v kick | grep -v grep)
+echo "Found processes:\n${PROCS}"
+
+SPID=$(echo $PROCS | head -1 | awk '{print $1}')
+echo $SPID
 if [ "x${SPID}" != "x" ]; then
-  kill -SIGHUP $SPID
+  kill -1 $SPID
 fi

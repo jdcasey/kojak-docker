@@ -5,8 +5,11 @@ GITDIR=/opt/koji
 BASEDIR=$(dirname ${GITDIR})
 
 if [ ! -d $GITDIR ]; then
-  mkdir /opt
-  cd /opt
+  if [ ! -d $BASEDIR ]; then
+    mkdir $BASEDIR
+  fi
+  
+  cd $BASEDIR
   git clone ${GITREPO}
 else
   cd ${GITDIR}
@@ -15,5 +18,14 @@ fi
 
 cd ${GITDIR}
 make test-rpm
+
+yum -y localinstall noarch/*.rpm
+
+rpm -qa | grep koji
+rpm -ql koji | grep bin
+
+if [ ! -f /usr/bin/brew ]; then
+  ln -s /usr/bin/koji /usr/bin/brew
+fi
 
 /usr/local/bin/kick-supervisord

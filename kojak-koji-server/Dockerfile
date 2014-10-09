@@ -1,6 +1,9 @@
 FROM kojak/kojak-common
 MAINTAINER John Casey <jcasey@redhat.com>
 
+RUN yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-2.noarch.rpm
+RUN yum -y update
+
 RUN yum -y install httpd mod_ssl openssl mod_auth_kerb mod_wsgi \
 yum-utils rpm-build mock createrepo git cvs svn subversion subversion-tools make rpmbuild pigz \
 libvirt virt-install qemu-img screen vim tree links dos2unix mlocate htop iftop \
@@ -26,7 +29,6 @@ RUN /usr/local/bin/avahi-setup
 
 ADD koji-http.avahi.service /etc/avahi/services/http.service
 ADD koji-https.avahi.service /etc/avahi/services/https.service
-ADD koji-ssh.avahi.service /etc/avahi/services/ssh.service
 
 RUN wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 RUN python ./get-pip.py
@@ -34,7 +36,6 @@ RUN pip install supervisor --pre
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-EXPOSE 22
 EXPOSE 80
 EXPOSE 443
 
