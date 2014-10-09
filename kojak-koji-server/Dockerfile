@@ -34,7 +34,7 @@ RUN wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 RUN python ./get-pip.py
 RUN pip install supervisor --pre
 
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD supervisord.conf /etc/supervisord.conf
 
 EXPOSE 80
 EXPOSE 443
