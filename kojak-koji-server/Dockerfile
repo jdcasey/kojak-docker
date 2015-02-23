@@ -1,7 +1,7 @@
 FROM kojak/kojak-common
 MAINTAINER John Casey <jcasey@redhat.com>
 
-RUN yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-2.noarch.rpm
+RUN yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
 RUN yum -y update
 
 RUN yum -y install httpd mod_ssl openssl mod_auth_kerb mod_wsgi \
