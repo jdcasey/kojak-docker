@@ -1,7 +1,7 @@
 FROM kojak/kojak-common
 MAINTAINER John Casey <jcasey@redhat.com>
 
-RUN yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 RUN yum -y update
 
 RUN yum -y install httpd mod_ssl openssl mod_auth_kerb mod_wsgi \
@@ -10,7 +10,7 @@ libvirt virt-install qemu-img screen vim tree links dos2unix mlocate htop iftop 
 postgresql postgresql-python pyOpenSSL python-krbV python-cheetah python-qpid libvirt-python python-virtinst \
 avahi
 
-RUN wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python ./get-pip.py
 RUN pip install supervisor --pre
 
